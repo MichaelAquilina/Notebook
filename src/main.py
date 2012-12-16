@@ -30,8 +30,12 @@ if __name__ == '__main__':
     print suffix_tree.root
     print suffix_tree.words()
     
-    str = 'line %s, position %s'
+    line_str = 'line %s, position %s'
     
-    print str % suffix_tree.get_meta('ASUS')
-    print str % suffix_tree.get_meta('Steff')
-    print str % suffix_tree.get_meta('Christina')
+    print suffix_tree.has_word('ASUS')
+    print suffix_tree.has_word('Christmas')
+    
+    print suffix_tree.get_data('ASUS')
+    print line_str % suffix_tree.get_data('ASUS').meta
+    print line_str % suffix_tree.get_data('Steff').meta
+    print line_str % suffix_tree.get_data('Christina').meta
