@@ -15,9 +15,9 @@ class SuffixTree(object):
     def __init__(self):
         self.root = Node()
         
-    def add_word(self, word):
+    def add_word(self, word, meta=None):
         """Public interface used to add words to the suffice tree."""
-        self._add(self.root, word)
+        self._add(self.root, word, meta)
         
     def words(self):
         """returns a list of all the words stored in the suffix tree."""
@@ -26,10 +26,10 @@ class SuffixTree(object):
         
         return output
     
-    def get_word(self, word):
+    def get_meta(self, word):
         """Returns the meta information for the specified word. If the word doesnt
         exist or no meta information was stored, then None is returned."""
-        pass
+        return self._get(self.root, word)
         
     def _add(self, node, word, meta=None):
         """Adds the specified word to the suffix tree for 
@@ -53,7 +53,7 @@ class SuffixTree(object):
             next_node = Node(head)
             node.children[head] = next_node
         
-        self._add(next_node, word[1:])
+        self._add(next_node, word[1:], meta)
         
     def _get_words(self, node, word, output):
         """Enumerates all the words in the suffix tree by performing a
@@ -63,3 +63,15 @@ class SuffixTree(object):
                 self._get_words(child, word + char, output)
         else:
             output.append(word)
+            
+    def _get(self, node, word):
+        """Gets the meta information of the specified word starting from the specified
+        node. Uses a recursive solution to return the final result."""
+        if len(word) == 0:
+            return node.meta
+        
+        head = word[0]
+        if head in node.children:
+            return self._get(node.children[head], word[1:])
+        else:
+            return None
