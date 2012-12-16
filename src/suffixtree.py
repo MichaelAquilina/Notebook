@@ -25,6 +25,11 @@ class SuffixTree(object):
         self._get_words(self.root, '', output)
         
         return output
+    
+    def get_word(self, word):
+        """Returns the meta information for the specified word. If the word doesnt
+        exist or no meta information was stored, then None is returned."""
+        pass
         
     def _add(self, node, word, meta=None):
         """Adds the specified word to the suffix tree for 
