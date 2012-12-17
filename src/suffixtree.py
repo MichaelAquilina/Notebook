@@ -1,3 +1,4 @@
+
 class LeafNode(object):
     
     def __init__(self, meta=None):
