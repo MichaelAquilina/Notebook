@@ -30,7 +30,7 @@ class SuffixTree(object):
         
     def add_word(self, word, meta=None):
         """Public interface used to add words to the suffice tree."""
-        self._add(self.root, word, meta)
+        self._add(self.root, word, 0, meta)
         
     def words(self):
         """returns a list of all the words stored in the suffix tree."""
@@ -49,21 +49,18 @@ class SuffixTree(object):
         a boolean result specifying the result of the search."""
         return self.get_data(word) != None
         
-    def _add(self, node, word, meta=None):
+    def _add(self, node, word, n, meta=None):
         """Adds the specified word to the suffix tree for 
         indexing. Meta-information may be passed optionally
         to be stored at the leaf node. The add_word method 
         should be used by external classes rather than this."""
         
-        # Todo: more efficient implementation by passing a pointer to the char location
-        # rather than specifying word[1:] and creating a new string in memory each time
-        
-        if len(word) == 0:
+        if len(word) == n:
             leaf = LeafNode(meta)
             node.data = leaf
             return  # Add a leaf node and return
         
-        head = word[0]
+        head = word[n]
         next_node = None
         
         if head in node.children:
@@ -72,7 +69,7 @@ class SuffixTree(object):
             next_node = Node(head)
             node.children[head] = next_node
         
-        self._add(next_node, word[1:], meta)
+        self._add(next_node, word, n + 1, meta)
         
     def _get_words(self, node, word, output):
         """Enumerates all the words in the suffix tree by performing a
