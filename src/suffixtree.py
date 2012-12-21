@@ -1,4 +1,3 @@
-
 class LeafNode(object):
     
     def __init__(self, meta=None):
@@ -53,7 +52,10 @@ class SuffixTree(object):
         """Adds the specified word to the suffix tree for 
         indexing. Meta-information may be passed optionally
         to be stored at the leaf node. The add_word method 
-        should be used by external classes rather than this."""
+        should be used by external classes rather than this.
+        The integer n passed in the arguments, specifies the
+        location of the character in the word to store in a
+        node."""
         
         if len(word) == n:
             leaf = LeafNode(meta)
