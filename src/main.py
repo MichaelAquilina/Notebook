@@ -4,6 +4,7 @@ import commands
 import sys
 import os    
             
+# Main Entry point of the application command line interface
 if __name__ == '__main__':
     
     if len(sys.argv) > 1:   
@@ -17,7 +18,8 @@ if __name__ == '__main__':
                 'has': commands.has, 
                 'lswords': commands.lswords,
                 'get': commands.get,
-                'print': commands.printline
+                'print': commands.printline,
+                'reload': commands.reload
             }
             
             user_input = ''
@@ -32,6 +34,10 @@ if __name__ == '__main__':
                 cmd = tokens[0]
                 arg = tokens[1] if len(tokens)>1 else None
                 
+                if cmd == 'man':
+                    print commands[arg].__doc__
+                    continue
+                
                 if cmd in commands:
                     # Execute the specified command with the argument
                     commands[cmd](notebook, arg)
@@ -41,5 +47,3 @@ if __name__ == '__main__':
             print 'Path \'%s\' does not exist' % file_path
     else:
         print 'expected file argument'
-            
-            
