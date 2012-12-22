@@ -28,7 +28,7 @@ class Notebook(object):
                 
                 for j, char in enumerate(line):
                     if char in WHITE_KEYS or char in SPECIAL_CHARS:
-                        self._add_suffixes(word, i, start)
+                        self._add_suffixes(word, start, i)
                         word = ''
                         start = -1
                     else:
@@ -37,10 +37,10 @@ class Notebook(object):
                         word += char
                     
     # Adds a word and all of its suffixes
-    def _add_suffixes(self, word, line_no, position, whole_word=True):
+    def _add_suffixes(self, word, position, line_no, whole_word=True):
         if len(word) == 0:
             return 
         
-        self.suffix_tree.add_word(word, ((line_no, position), whole_word))
+        self.suffix_tree.add_word(word, ((position, line_no), whole_word))
         # TEMP: Disabled until querying power is given to suffix tree
         # self._add_suffixes(word[1:], line_no, position + 1, suffix_tree, whole_word=False)    
