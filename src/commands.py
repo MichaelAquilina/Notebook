@@ -1,15 +1,18 @@
 """Available commands for the Notebook program are stored in this file"""
 
 def has(notebook, arg):
+    """Checks if a word exists in the currently loaded notebook."""
     if arg:    
         print notebook.suffix_tree.has_word(arg)
     else:
         print 'Argument expected'
 
 def lswords(notebook, arg):
+    """Lists all the unique words found in the currently loaded notebook."""
     print notebook.suffix_tree.words()
             
 def get(notebook, arg):
+    """gets meta information from the specified word in the currently loaded notebook."""
     if arg:
         data = notebook.suffix_tree.get_data(arg)
         if data: 
@@ -23,6 +26,7 @@ def get(notebook, arg):
         print 'Argument expected'
         
 def printline(notebook, arg):
+    """prints the specified line from the currently loaded notebook."""
     # Naive implementation, needs to be improved
     if arg:
         with open(notebook.file_path) as nfile:
@@ -35,3 +39,10 @@ def printline(notebook, arg):
     else:
         print 'Line Argument expected'
         
+def reload(notebook, arg):
+    """"Loads the notebook with the specified file. Will reload the current file if no
+    path is specified in the arguments."""
+    notebook.reload(arg)
+        
+    print 'Notebook reloaded with %s' % notebook.file_path
+    
