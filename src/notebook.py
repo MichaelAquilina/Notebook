@@ -12,22 +12,22 @@ class Notebook(object):
         self._parse_file(self.file_path)
         
     def _parse_file(self, file_path):
-        notebook = open(file_path,'r')
+        with open(file_path,'r') as notebook:
         
-        # build the contents found in the file
-        for i, line in enumerate(notebook.readlines()):
-            word = '' # word buffer
-            start = -1
-            
-            for j, char in enumerate(line):
-                if char in WHITE_KEYS or char in SPECIAL_CHARS:
-                    self._add_suffixes(word, i, start)
-                    word = ''
-                    start = -1
-                else:
-                    if start==-1: 
-                        start = j
-                    word += char
+            # build the contents found in the file
+            for i, line in enumerate(notebook.readlines()):
+                word = '' # word buffer
+                start = -1
+                
+                for j, char in enumerate(line):
+                    if char in WHITE_KEYS or char in SPECIAL_CHARS:
+                        self._add_suffixes(word, i, start)
+                        word = ''
+                        start = -1
+                    else:
+                        if start==-1: 
+                            start = j
+                        word += char
                     
     # Adds a word and all of its suffixes
     def _add_suffixes(self, word, line_no, position, whole_word=True):

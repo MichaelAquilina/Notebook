@@ -16,7 +16,8 @@ if __name__ == '__main__':
             commands = {
                 'has': commands.has, 
                 'lswords': commands.lswords,
-                'get': commands.get
+                'get': commands.get,
+                'print': commands.printline
             }
             
             user_input = ''
@@ -36,6 +37,8 @@ if __name__ == '__main__':
                     commands[cmd](notebook, arg)
                 else:
                     print 'Unknown command specified.\nAccepted commands = %s' % commands.keys()
+        else:
+            print 'Path \'%s\' does not exist' % file_path
     else:
         print 'expected file argument'
             
