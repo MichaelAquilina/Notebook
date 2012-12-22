@@ -47,7 +47,7 @@ class SuffixTree(object):
     def get_data(self, word):
         """Returns the data information for the specified word. If the word doesn't
         exist or no meta information was stored, then None is returned."""
-        return self._get(self.root, word)
+        return self._get(self.root, word, 0)
     
     def has_word(self, word):
         """Searches the suffix tree to see if it contains the specified word and returns
@@ -88,14 +88,14 @@ class SuffixTree(object):
         else:
             output.append(word)
             
-    def _get(self, node, word):
+    def _get(self, node, word, n):
         """Gets the data information of the specified word starting from the specified
         node. Uses a recursive solution to return the final result."""
-        if len(word) == 0:
+        if len(word) == n:
             return node.data
         
-        head = word[0]
+        head = word[n]
         if head in node.children:
-            return self._get(node.children[head], word[1:])
+            return self._get(node.children[head], word, n + 1)
         else:
             return None
