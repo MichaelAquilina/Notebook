@@ -1,10 +1,10 @@
 class LeafNode(object):
     
-    def __init__(self):
-        self.meta = []
+    def __init__(self, meta):
+        self.meta = meta
         
     def __repr__(self):
-        return 'LeafNode: Meta(%s)=%s' % (len(self.meta), repr(self.meta))
+        return 'LeafNode: Meta=%s' % repr(self.meta)
         
 # Suffix Tree Node
 class Node(object):
@@ -13,7 +13,7 @@ class Node(object):
         self.store = store  # data stored at this node
         self.children = {}  # all child nodes
         self.parent = None  # parent node
-        self.data = None    # leaf node associated with this Node
+        self.data = []    # leaf node associated with this Node
         
     def __repr__(self):
         return 'Parent=%s, Children=%s' % (repr(self.parent), len(self.children)) 
@@ -58,16 +58,8 @@ class SuffixTree(object):
         node."""
         
         if len(word) == n:
-            leaf = None
-            
-            if node.data:
-                leaf = node.data
-            else:
-                leaf = LeafNode()
-                node.data = leaf
-            
-            leaf.meta.append(meta)
-            node.data = leaf
+            leaf = LeafNode(meta)
+            node.data.append(leaf)
             return  # Add a leaf node and return
         
         head = word[n]

@@ -3,11 +3,11 @@ import sys
 import os
 
 WHITE_KEYS = ['\n',' ','\t']
-SPECIAL_CHARS = ['(',')','+','=','-']
+SPECIAL_CHARS = ['(',')','=','-']
 
-def parse_file(file, suffix_tree):
+def parse_file(notebook, suffix_tree):
     # build the contents found in the file
-    for i, line in enumerate(file.readlines()):
+    for i, line in enumerate(notebook.readlines()):
         word = '' # word buffer
         start = -1
         
@@ -27,7 +27,33 @@ def add_suffixes(word, line_no, position, suffix_tree, whole_word=True):
         return 
     
     suffix_tree.add_word(word, ((line_no, position), whole_word))
-    add_suffixes(word[1:], line_no, position + 1, suffix_tree, whole_word=False)
+    # TEMP: Disabled until querying power is given to suffix tree
+    # add_suffixes(word[1:], line_no, position + 1, suffix_tree, whole_word=False)
+    
+# ======= COMMANDS ========
+    
+def has_command(arg, suffix_tree):
+    if arg:    
+        print suffix_tree.has_word(arg)
+    else:
+        print 'Argument expected'
+
+def lswords_command(arg, suffix_tree):
+    print suffix_tree.words()
+            
+def get_command(arg, suffix_tree):
+    if arg:
+        data = suffix_tree.get_data(arg)
+        if data: 
+            for entry in data:
+                print 'position=%s, whole_word=%s' % entry.meta
+            
+            print '(%s entries)' % len(data)
+        else:
+            print '\'%s\' not found' % arg
+    else:
+        print 'Argument expected'
+        
             
 if __name__ == '__main__':
     
@@ -40,19 +66,30 @@ if __name__ == '__main__':
             suffix_tree = SuffixTree()    
             parse_file(notebook, suffix_tree)
             
-            # Program command line interaction
-            # For now the program just tells you if the input word exists in the file and if so, its meta information
+            # Dictionary of command names and executable functions
+            commands = {
+                'has':has_command, 
+                'lswords':lswords_command,
+                'get':get_command
+            }
             
-            # Add commands like has, lswords etc
             user_input = ''
             while user_input!='quit':
                 user_input = raw_input()
                 
-                found =  suffix_tree.has_word(user_input)
-                if found:
-                    print 'True: <%s>' % suffix_tree.get_data(user_input)
+                tokens = user_input.split()
+                
+                if len(tokens)==0:
+                    continue
+                
+                cmd = tokens[0]
+                arg = tokens[1] if len(tokens)>1 else None
+                
+                if cmd in commands:
+                    # Execute the specified command with the argument
+                    commands[cmd](arg, suffix_tree)
                 else:
-                    print 'False'
+                    print 'Unknown command specified.\nAccepted commands = %s' % commands.keys()
     else:
         print 'expected file argument'
             
