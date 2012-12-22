@@ -1,6 +1,6 @@
 """Available commands for the Notebook program are stored in this file"""
 
-def has(notebook, arg):
+def has_cmd(notebook, arg):
     """
     Checks if a word exists in the currently loaded notebook.
     """
@@ -9,7 +9,7 @@ def has(notebook, arg):
     else:
         print 'Argument expected'
 
-def lswords(notebook, arg):
+def lswords_cmd(notebook, arg):
     """
     Lists all the unique words found in the currently loaded notebook.
     """
@@ -17,7 +17,7 @@ def lswords(notebook, arg):
     print words
     print '(%s entries)' % len(words) 
             
-def get(notebook, arg):
+def get_cmd(notebook, arg):
     """
     gets meta information from the specified word in the currently loaded notebook.
     """
@@ -65,7 +65,7 @@ def reload_cmd(notebook, arg):
         
     print 'Notebook reloaded with %s' % notebook.file_path
     
-def info(notebook, arg):
+def info_cmd(notebook, arg):
     """
     Displays information about the currently loaded notebook.
     """

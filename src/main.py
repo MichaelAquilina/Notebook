@@ -21,12 +21,12 @@ if __name__ == '__main__':
             
             # Dictionary of command names and executable functions
             commands = {
-                'has': commands.has, 
-                'lswords': commands.lswords,
-                'get': commands.get,
+                'has': commands.has_cmd, 
+                'lswords': commands.lswords_cmd,
+                'get': commands.get_cmd,
                 'print': commands.print_cmd,
                 'reload': commands.reload_cmd,
-                'info': commands.info
+                'info': commands.info_cmd
             }
             
             user_input = ''
