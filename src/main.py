@@ -26,7 +26,8 @@ if __name__ == '__main__':
                 'get': commands.get_cmd,
                 'print': commands.print_cmd,
                 'reload': commands.reload_cmd,
-                'info': commands.info_cmd
+                'info': commands.info_cmd,
+                'show': commands.show_cmd
             }
             
             user_input = ''

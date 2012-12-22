@@ -65,6 +65,32 @@ def reload_cmd(notebook, arg):
         
     print 'Notebook reloaded with %s' % notebook.file_path
     
+def show_cmd(notebook, arg):
+    """
+    Shows and prints all lines which have occurances with the word specified in
+    the argument.
+    """
+    if arg:
+        data = notebook.suffix_tree.get_data(arg)
+        if data:
+            lines = []
+            for entry in data:  
+                pos, whole_word = entry.meta
+                x, y = pos
+                lines.append(y)
+                
+            with open(notebook.file_path) as nfile:
+                for line_no, line in enumerate(nfile.readlines()):
+                    if line_no in lines:
+                        print '(line %s) \'%s\'' % (line_no, line.rstrip())
+                        
+        else:
+            print '\'%s\' not found' % arg
+    else:
+        print 'Argument expected'
+            
+            
+    
 def info_cmd(notebook, arg):
     """
     Displays information about the currently loaded notebook.
