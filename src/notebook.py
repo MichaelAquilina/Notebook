@@ -1,4 +1,4 @@
-from suffixtree import SuffixTree
+from suffixtree import SuffixTree, Node
 
 WHITE_KEYS = ['\n',' ','\t']
 SPECIAL_CHARS = ['(',')','=','-']
@@ -9,6 +9,13 @@ class Notebook(object):
         self.file_path = file_path
             
         self.suffix_tree = SuffixTree()    
+        self._parse_file(self.file_path)
+        
+    def reload(self, file_path=None):
+        if file_path:
+            self.file_path = file_path
+        
+        self.suffix_tree.root = Node()  # Restart the suffix tree
         self._parse_file(self.file_path)
         
     def _parse_file(self, file_path):
