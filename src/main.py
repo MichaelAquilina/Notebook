@@ -12,6 +12,7 @@ if __name__ == '__main__':
         
         if os.path.exists(file_path):
             notebook = Notebook(file_path)
+            print 'Successfully loaded \'%s\' into a notebook' % file_path
             
             # Dictionary of command names and executable functions
             commands = {
@@ -24,7 +25,7 @@ if __name__ == '__main__':
             
             user_input = ''
             while user_input!='quit':
-                user_input = raw_input()
+                user_input = raw_input('>')
                 
                 tokens = user_input.split()
                 
@@ -34,8 +35,9 @@ if __name__ == '__main__':
                 cmd = tokens[0]
                 arg = tokens[1] if len(tokens)>1 else None
                 
+                # man prints out the docstring to provide the user with some help
                 if cmd == 'man':
-                    print commands[arg].__doc__
+                    print commands[arg].__doc__.rstrip()
                     continue
                 
                 if cmd in commands:
