@@ -1,17 +1,17 @@
 """Available commands for the Notebook program are stored in this file"""
 
-def has(arg, suffix_tree):
+def has(notebook, arg):
     if arg:    
-        print suffix_tree.has_word(arg)
+        print notebook.suffix_tree.has_word(arg)
     else:
         print 'Argument expected'
 
-def lswords(arg, suffix_tree):
-    print suffix_tree.words()
+def lswords(notebook, arg):
+    print notebook.suffix_tree.words()
             
-def get(arg, suffix_tree):
+def get(notebook, arg):
     if arg:
-        data = suffix_tree.get_data(arg)
+        data = notebook.suffix_tree.get_data(arg)
         if data: 
             for entry in data:
                 print 'position=%s, whole_word=%s' % entry.meta
@@ -21,4 +21,4 @@ def get(arg, suffix_tree):
             print '\'%s\' not found' % arg
     else:
         print 'Argument expected'
-    
+        
