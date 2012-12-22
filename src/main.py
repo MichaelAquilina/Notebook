@@ -20,7 +20,7 @@ if __name__ == '__main__':
                 'lswords': commands.lswords,
                 'get': commands.get,
                 'print': commands.print_cmd,
-                'reload': commands.reload,
+                'reload': commands.reload_cmd,
                 'info': commands.info
             }
             

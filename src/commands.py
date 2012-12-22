@@ -56,7 +56,7 @@ def print_cmd(notebook, arg):
     else:
         print 'Line Argument expected'
         
-def reload(notebook, arg):
+def reload_cmd(notebook, arg):
     """
     Loads the notebook with the specified file. Will reload the current file if no
     path is specified in the arguments.
