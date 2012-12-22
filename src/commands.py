@@ -13,7 +13,9 @@ def lswords(notebook, arg):
     """
     Lists all the unique words found in the currently loaded notebook.
     """
-    print notebook.suffix_tree.words()
+    words = notebook.suffix_tree.words()
+    print words
+    print '(%s entries)' % len(words) 
             
 def get(notebook, arg):
     """
