@@ -4,6 +4,12 @@ WHITE_KEYS = ['\n',' ','\t']
 SPECIAL_CHARS = ['(',')','=','-']
 
 class Notebook(object):
+    """
+    Notebook object that represents a single text document that is loaded
+    into memory to allow the program to query and report information about 
+    its contents. The core logic of the program should be found within this
+    class.
+    """
     
     def __init__(self, file_path):
         self.file_path = file_path
