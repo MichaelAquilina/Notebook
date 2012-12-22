@@ -2,7 +2,12 @@ from notebook import Notebook
 
 import commands
 import sys
-import os    
+import os
+
+INFO =  '''
+        Notebook, Developed by Michael Aquilina 2012
+        contact: michaelaquilina@gmail.com
+        '''
             
 # Main Entry point of the application command line interface
 if __name__ == '__main__':
@@ -25,7 +30,7 @@ if __name__ == '__main__':
             }
             
             user_input = ''
-            while user_input!='quit':
+            while True:
                 user_input = raw_input('>')
                 
                 tokens = user_input.split()
@@ -36,16 +41,26 @@ if __name__ == '__main__':
                 cmd = tokens[0]
                 arg = tokens[1] if len(tokens)>1 else None
                 
+                # exits from the application
                 if cmd == 'quit':
                     break
                 
-                # man prints out the docstring to provide the user with some help
-                if cmd == 'man':
-                    print commands[arg].__doc__.rstrip()[1:]
+                # prints out all available commands
+                if cmd == 'help':
+                    print INFO
+                    print 'Commands: \n%s' % commands.keys()
                     continue
                 
+                # man prints out the doc string to provide the user with some help
+                if cmd == 'man':
+                    if arg in commands:
+                        print commands[arg].__doc__.rstrip()[1:]
+                    else:
+                        print 'Unknown command specified for man pages'
+                    continue
+                
+                # Execute the specified command with the argument
                 if cmd in commands:
-                    # Execute the specified command with the argument
                     commands[cmd](notebook, arg)
                 else:
                     print 'Unknown command specified.\nAccepted commands = %s' % commands.keys()
