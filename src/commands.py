@@ -22,15 +22,15 @@ def get(notebook, arg):
     else:
         print 'Argument expected'
         
-def print_line(notebook, arg):
+def printline(notebook, arg):
     # Naive implementation, needs to be improved
     if arg:
-        file = open(notebook.file_path)
-        for line_no, line in enumerate(file.readlines()):
-            if line_no == int(arg):
-                print line
-                return
-        
+        with open(notebook.file_path) as nfile:
+            for line_no, line in enumerate(nfile.readlines()):
+                if line_no == int(arg):
+                    print line.rstrip()
+                    return
+                
         print 'Unable to find specified line (%s)' % arg
     else:
         print 'Line Argument expected'
