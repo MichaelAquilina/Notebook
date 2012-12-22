@@ -33,19 +33,26 @@ def get(notebook, arg):
     else:
         print 'Argument expected'
         
-def printline(notebook, arg):
+def print_cmd(notebook, arg):
     """
-    prints the specified line from the currently loaded notebook.
+    prints text from the currently loaded notebook. Can either print individual
+    lines specified in the arguments using the line number, or the entire document
+    can be printed using the 'all' argument.
     """
     # Naive implementation, needs to be improved
     if arg:
         with open(notebook.file_path) as nfile:
             for line_no, line in enumerate(nfile.readlines()):
+                if arg == 'all':
+                    print line.rstrip()
+                    continue
+                
                 if line_no == int(arg):
                     print line.rstrip()
                     return
                 
-        print 'Unable to find specified line (%s)' % arg
+        if arg != 'all':
+            print 'Unable to find specified line (%s)' % arg
     else:
         print 'Line Argument expected'
         
@@ -62,5 +69,5 @@ def info(notebook, arg):
     """
     Displays information about the currently loaded notebook.
     """
-    print '%s' % notebook.file_path
+    print 'file=[%s] with [%s] unique words' % (notebook.file_path, len(notebook.suffix_tree.words()))
     
