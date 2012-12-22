@@ -20,7 +20,8 @@ if __name__ == '__main__':
                 'lswords': commands.lswords,
                 'get': commands.get,
                 'print': commands.printline,
-                'reload': commands.reload
+                'reload': commands.reload,
+                'info': commands.info
             }
             
             user_input = ''

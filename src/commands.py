@@ -58,3 +58,9 @@ def reload(notebook, arg):
         
     print 'Notebook reloaded with %s' % notebook.file_path
     
+def info(notebook, arg):
+    """
+    Displays information about the currently loaded notebook.
+    """
+    print '%s' % notebook.file_path
+    
