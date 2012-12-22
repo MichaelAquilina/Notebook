@@ -37,7 +37,7 @@ if __name__ == '__main__':
                 
                 # man prints out the docstring to provide the user with some help
                 if cmd == 'man':
-                    print commands[arg].__doc__.rstrip()
+                    print commands[arg].__doc__.rstrip()[1:]
                     continue
                 
                 if cmd in commands:
