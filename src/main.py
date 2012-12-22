@@ -1,4 +1,6 @@
 from suffixtree import SuffixTree
+
+import commands
 import sys
 import os
 
@@ -28,32 +30,7 @@ def add_suffixes(word, line_no, position, suffix_tree, whole_word=True):
     
     suffix_tree.add_word(word, ((line_no, position), whole_word))
     # TEMP: Disabled until querying power is given to suffix tree
-    # add_suffixes(word[1:], line_no, position + 1, suffix_tree, whole_word=False)
-    
-# ======= COMMANDS ========
-    
-def has_command(arg, suffix_tree):
-    if arg:    
-        print suffix_tree.has_word(arg)
-    else:
-        print 'Argument expected'
-
-def lswords_command(arg, suffix_tree):
-    print suffix_tree.words()
-            
-def get_command(arg, suffix_tree):
-    if arg:
-        data = suffix_tree.get_data(arg)
-        if data: 
-            for entry in data:
-                print 'position=%s, whole_word=%s' % entry.meta
-            
-            print '(%s entries)' % len(data)
-        else:
-            print '\'%s\' not found' % arg
-    else:
-        print 'Argument expected'
-        
+    # add_suffixes(word[1:], line_no, position + 1, suffix_tree, whole_word=False)        
             
 if __name__ == '__main__':
     
@@ -68,9 +45,9 @@ if __name__ == '__main__':
             
             # Dictionary of command names and executable functions
             commands = {
-                'has':has_command, 
-                'lswords':lswords_command,
-                'get':get_command
+                'has': commands.has, 
+                'lswords': commands.lswords,
+                'get': commands.get
             }
             
             user_input = ''

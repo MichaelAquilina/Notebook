@@ -1,4 +1,6 @@
 class LeafNode(object):
+    """Special type of node that represents the meta information for a word.
+    Found at the end of the word traversal on nodes in a suffix tree."""
     
     def __init__(self, meta):
         self.meta = meta
@@ -8,12 +10,16 @@ class LeafNode(object):
         
 # Suffix Tree Node
 class Node(object):
+    """Suffix Node object that contains references to a Parent node and other
+    child nodes. Each node has an associated storage value (usually a character)
+    and possibly one or more LeafNodes that would contain meta information about
+    a word."""
     
     def __init__(self, store='\0'):
         self.store = store  # data stored at this node
         self.children = {}  # all child nodes
         self.parent = None  # parent node
-        self.data = []    # leaf node associated with this Node
+        self.data = []   # leaf node associated with this Node
         
     def __repr__(self):
         return 'Parent=%s, Children=%s' % (repr(self.parent), len(self.children)) 
