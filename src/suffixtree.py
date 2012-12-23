@@ -18,11 +18,10 @@ class Node(object):
     def __init__(self, store='\0'):
         self.store = store  # data stored at this node
         self.children = {}  # all child nodes
-        self.parent = None  # parent node
         self.data = []   # leaf node associated with this Node
         
     def __repr__(self):
-        return 'Parent=%s, Store=%s, Children=%s' % (repr(self.parent), self.store, len(self.children)) 
+        return 'Store=%s, Children=%s' % (repr(self.parent), self.store, len(self.children)) 
         
 class SuffixTree(object):
     """Suffix tree class that provides an interface to interact with. Allows methods

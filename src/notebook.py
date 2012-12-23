@@ -47,5 +47,5 @@ class Notebook(object):
         if len(word) == 0:
             return 
         
-        self.suffix_tree.add_word(word, ((position, line_no), whole_word))
-        self._add_suffixes(word[1:], position + 1, line_no, whole_word=False)    
+        self.suffix_tree.add_word(word.lower(), ((position, line_no), whole_word))
+        #self._add_suffixes(word[1:], position + 1, line_no, whole_word=False)    
