@@ -11,9 +11,13 @@ def has_cmd(notebook, arg):
 
 def lswords_cmd(notebook, arg):
     """
-    Lists all the unique words found in the currently loaded notebook.
+    Lists all the unique words found in the currently loaded notebook (in
+    alphabetical order). The command will only display whole words. To 
+    include word suffixes in the results, use the '--all' argument.
     """
-    words = notebook.suffix_tree.words()
+    include_suffixes = (arg == '--all')
+    
+    words = notebook.suffix_tree.words(include_suffixes)
     print words
     print '(%s entries)' % len(words) 
             
@@ -37,13 +41,13 @@ def print_cmd(notebook, arg):
     """
     prints text from the currently loaded notebook. Can either print individual
     lines specified in the arguments using the line number, or the entire document
-    can be printed using the 'all' argument.
+    can be printed using the '--all' argument.
     """
     # Naive implementation, needs to be improved
     if arg:
         with open(notebook.file_path) as nfile:
             for line_no, line in enumerate(nfile.readlines()):
-                if arg == 'all':
+                if arg == '--all':
                     print line.rstrip()
                     continue
                 
@@ -67,7 +71,7 @@ def reload_cmd(notebook, arg):
     
 def show_cmd(notebook, arg):
     """
-    Shows and prints all lines which have occurances with the word specified in
+    Shows and prints all lines which have occurrences with the word specified in
     the argument.
     """
     if arg:
@@ -75,8 +79,8 @@ def show_cmd(notebook, arg):
         if data:
             lines = []
             for entry in data:  
-                pos, whole_word = entry.meta
-                x, y = pos
+                pos, _ = entry.meta
+                _, y = pos
                 lines.append(y)
                 
             with open(notebook.file_path) as nfile:

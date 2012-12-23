@@ -48,5 +48,4 @@ class Notebook(object):
             return 
         
         self.suffix_tree.add_word(word, ((position, line_no), whole_word))
-        # TEMP: Disabled until querying power is given to suffix tree
-        # self._add_suffixes(word[1:], line_no, position + 1, suffix_tree, whole_word=False)    
+        self._add_suffixes(word[1:], line_no, position + 1, whole_word=False)    

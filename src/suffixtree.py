@@ -37,10 +37,10 @@ class SuffixTree(object):
         """Public interface used to add words to the suffice tree."""
         self._add(self.root, word, 0, meta)
         
-    def words(self):
+    def words(self, include_suffixes=False):
         """returns a list of all the words stored in the suffix tree."""
         output = []
-        self._get_words(self.root, '', output)
+        self._get_words(self.root, '', output, include_suffixes)
         
         return output
     
@@ -79,14 +79,21 @@ class SuffixTree(object):
         
         self._add(next_node, word, n + 1, meta)
         
-    def _get_words(self, node, word, output):
+    def _get_words(self, node, word, output, include_suffixes):
         """Enumerates all the words in the suffix tree by performing a
          Depth-First-Search of the suffix tree using recursive techniques."""
         if node.children:
             for char, child in node.children.items():
-                self._get_words(child, word + char, output)
-        else:
-            output.append(word)
+                self._get_words(child, word + char, output, include_suffixes)
+        
+        # If the current node has data, then a word exists
+        if node.data:
+            # Check if at least one entry is a whole word
+            for entry in node.data:
+                _, whole = entry.meta
+                if whole or include_suffixes:     # If the word is whole, or we want all suffixes 
+                    output.append(word)
+                    break
             
     def _get(self, node, word, n):
         """Gets the data information of the specified word starting from the specified
