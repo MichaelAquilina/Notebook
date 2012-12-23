@@ -1,0 +1,4 @@
+TODO:
+
+- Proper substring searching by including prefix cases (return words from a specified node)
+- Improved suffix tree performance for larger files
