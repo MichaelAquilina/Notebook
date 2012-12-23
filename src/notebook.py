@@ -1,7 +1,7 @@
 from suffixtree import SuffixTree, Node
 
 WHITE_KEYS = ['\n',' ','\t']
-SPECIAL_CHARS = ['(',')','=','-']
+SPECIAL_CHARS = ['(',')']
 
 class Notebook(object):
     """
@@ -48,4 +48,4 @@ class Notebook(object):
             return 
         
         self.suffix_tree.add_word(word, ((position, line_no), whole_word))
-        self._add_suffixes(word[1:], line_no, position + 1, whole_word=False)    
+        self._add_suffixes(word[1:], position + 1, line_no, whole_word=False)    

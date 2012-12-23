@@ -22,7 +22,7 @@ class Node(object):
         self.data = []   # leaf node associated with this Node
         
     def __repr__(self):
-        return 'Parent=%s, Children=%s' % (repr(self.parent), len(self.children)) 
+        return 'Parent=%s, Store=%s, Children=%s' % (repr(self.parent), self.store, len(self.children)) 
         
 class SuffixTree(object):
     """Suffix tree class that provides an interface to interact with. Allows methods
@@ -44,15 +44,15 @@ class SuffixTree(object):
         
         return output
     
-    def get_data(self, word):
+    def get_data(self, word, substrings=False):
         """Returns the data information for the specified word. If the word doesn't
         exist or no meta information was stored, then None is returned."""
-        return self._get(self.root, word, 0)
+        return self._get(self.root, word, 0, substrings)
     
-    def has_word(self, word):
+    def has_word(self, word, substrings=False):
         """Searches the suffix tree to see if it contains the specified word and returns
         a boolean result specifying the result of the search."""
-        return self.get_data(word) != None
+        return self.get_data(word, substrings) != None
         
     def _add(self, node, word, n, meta=None):
         """Adds the specified word to the suffix tree for 
@@ -95,7 +95,7 @@ class SuffixTree(object):
                     output.append(word)
                     break
             
-    def _get(self, node, word, n):
+    def _get(self, node, word, n, substrings):
         """Gets the data information of the specified word starting from the specified
         node. Uses a recursive solution to return the final result."""
         if len(word) == n:
@@ -103,6 +103,6 @@ class SuffixTree(object):
         
         head = word[n]
         if head in node.children:
-            return self._get(node.children[head], word, n + 1)
+            return self._get(node.children[head], word, n + 1, substrings)
         else:
             return None
